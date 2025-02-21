@@ -56,7 +56,19 @@
   programs.neovim.enable = true;
 
   # home.packages = with pkgs; [ chrome ];
+    home.packages = with pkgs; [
+      pinentry-gtk2  # Or pinentry-qt or pinentry-curses
+      gnupg
+  ];
 
+  # Configure GPG agent
+  services.gpg-agent = {
+    enable = true;
+    defaultCacheTtl = 1800;
+    maxCacheTtl = 7200;
+    enableSshSupport = true;
+        pinentryPackage = pkgs.pinentry-gtk2;  # Or pkgs.pinentry-qt or pkgs.pinentry-curses
+  };
 
   programs.alacritty = {
     enable = true;
@@ -71,6 +83,19 @@
 
     delta = {
         enable = true;
+    };
+    
+    signing = {
+      key = "2EF22D6304BD59B1";
+      signByDefault = true;
+    };
+
+        extraConfig = {
+      init.defaultBranch = "main";
+      pull.rebase = false;
+      gpg.program = "${pkgs.gnupg}/bin/gpg2";
+      commit.gpgsign = true;
+      tag.gpgsign = true;
     };
 
     aliases = {
