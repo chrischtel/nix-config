@@ -73,6 +73,7 @@
     };
   # FIXME: Add the rest of your current configuration
 
+       programs.zsh.enable = true;
   # TODO: Set your hostname
   networking.hostName = "fuck";
 
@@ -90,6 +91,7 @@
       ];
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
       extraGroups = ["wheel" "networkmanager"];
+      shell = pkgs.zsh;
     };
   };
 
@@ -109,7 +111,7 @@
   services.xserver = {
     enable = true;
     windowManager.i3.enable = true;
-    displayManager.sddm.enable = true;
+    displayManager.lightdm.enable = true;
     layout = "de";
     xkbOptions = "nodeadkeys";
     videoDrivers = [ "amdgpu" ];
@@ -120,7 +122,11 @@
     dmenu # A dynamic menu for X
     # Add other packages you want here
   ];
-
+fonts.packages = with pkgs; [
+  nerd-fonts.fira-code
+  nerd-fonts.droid-sans-mono
+nerd-fonts.iosevka
+];
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }
