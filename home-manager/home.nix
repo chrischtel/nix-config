@@ -7,7 +7,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -113,12 +114,11 @@
     args = ["-l", "-c", "tmux attach || tmux"]
   '';
 
-
   # Add stuff for your user as you see fit:
   programs.neovim.enable = true;
-    programs.tmux = {
-        enable = true;
-        sensibleOnTop = true;
+  programs.tmux = {
+    enable = true;
+    sensibleOnTop = true;
     # Set the base index for windows (and panes)
     baseIndex = 1;
     # Increase scrollback by setting history limit
@@ -132,8 +132,8 @@
     # Use vi-style key bindings in copy mode
     keyMode = "vi";
 
-        prefix = "C-a";
-        extraConfig = ''
+    prefix = "C-a";
+    extraConfig = ''
                   # Plugin configurations
       set -g @resurrect-strategy-nvim 'session'
       set -g @continuum-restore 'on'
@@ -219,32 +219,32 @@
       bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
       bind -n C-\\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 
-        '';
-        plugins = with pkgs; [
-            tmuxPlugins.vim-tmux-navigator
-            tmuxPlugins.yank
-
-            {
-                plugin = tmuxPlugins.resurrect;
-                extraConfig = "set -g @resurrect-strategy-nvim 'session'";
-            }
-            {
-                    plugin = tmuxPlugins.continuum;
-    extraConfig = ''
-      set -g @continuum-restore 'on'
-      set -g @continuum-save-interval '60' # minutes
     '';
-            }
+    plugins = with pkgs; [
+      tmuxPlugins.vim-tmux-navigator
+      tmuxPlugins.yank
 
-        ];
-    };
+      {
+        plugin = tmuxPlugins.resurrect;
+        extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+      }
+      {
+        plugin = tmuxPlugins.continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+          set -g @continuum-save-interval '60' # minutes
+        '';
+      }
+
+    ];
+  };
 
   # home.packages = with pkgs; [ chrome ];
-    home.packages = with pkgs; [
-      pinentry-gtk2  # Or pinentry-qt or pinentry-curses
-      gnupg
-      deno
-        clang
+  home.packages = with pkgs; [
+    pinentry-gtk2 # Or pinentry-qt or pinentry-curses
+    gnupg
+    deno
+    clang
     cmake
     # binutils
     valgrind
@@ -259,17 +259,17 @@
 
     # Zig
     zig
-        xclip
+    xclip
 
-        firefox
-            antidote
+    firefox
+    antidote
     bat
     fd
     fzf
     ripgrep
     eza
     lazygit
-    ];
+  ];
 
   # Configure GPG agent
   services.gpg-agent = {
@@ -277,15 +277,14 @@
     defaultCacheTtl = 1800;
     maxCacheTtl = 7200;
     enableSshSupport = true;
-        pinentryPackage = pkgs.pinentry-gtk2;  # Or pkgs.pinentry-qt or pkgs.pinentry-curses
+    pinentryPackage = pkgs.pinentry-gtk2; # Or pkgs.pinentry-qt or pkgs.pinentry-curses
   };
 
   programs.alacritty = {
     enable = true;
   };
 
-
-      home.file.".ripgreprc".text = ''
+  home.file.".ripgreprc".text = ''
     --max-columns=150
     --max-columns-preview
 
@@ -313,7 +312,7 @@
     --line-number
   '';
 
-programs.zsh = {
+  programs.zsh = {
     enable = true;
     package = pkgs.zsh;
 
@@ -429,7 +428,7 @@ programs.zsh = {
     userEmail = "ch@brendlinonline.de";
     userName = "Christian Brendlin";
     delta = {
-        enable = true;
+      enable = true;
     };
 
     signing = {
@@ -437,7 +436,7 @@ programs.zsh = {
       signByDefault = true;
     };
 
-        extraConfig = {
+    extraConfig = {
       init.defaultBranch = "main";
       pull.rebase = false;
       gpg.program = "${pkgs.gnupg}/bin/gpg2";
@@ -459,7 +458,6 @@ programs.zsh = {
   programs.zoxide.enable = true;
   programs.starship.enable = true;
   programs.atuin.enable = true;
-
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
