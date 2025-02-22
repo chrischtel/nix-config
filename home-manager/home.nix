@@ -168,7 +168,7 @@
       unbind %
 
       ##############################
-      # Pane switching using Alt-arrow without prefix
+      # Pane switching using Alt-arrow without prefgx
       bind -n M-Left select-pane -L
       bind -n M-Right select-pane -R
       bind -n M-Up select-pane -U
@@ -283,6 +283,35 @@
   programs.alacritty = {
     enable = true;
   };
+
+
+      home.file.".ripgreprc".text = ''
+    --max-columns=150
+    --max-columns-preview
+
+    --type-add
+    web:*.{html,css,js}*
+
+    --hidden
+
+    --glob=!.git/*
+    --glob=!node_modules/*
+    --glob=!vendor/*
+
+    --colors=line:style:bold
+    --colors=line:fg:yellow
+    --colors=path:fg:green
+    --colors=path:style:bold
+    --colors=match:fg:black
+    --colors=match:bg:yellow
+    --colors=match:style:nobold
+
+    --smart-case
+
+    --follow
+
+    --line-number
+  '';
 
 programs.zsh = {
     enable = true;
